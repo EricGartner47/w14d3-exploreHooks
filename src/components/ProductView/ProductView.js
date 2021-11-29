@@ -7,18 +7,22 @@ function ProductView({ products }) {
 
     // TODO: Replace with state variable
     const [sideOpen, setSideOpen] = useState(false);
-    const [product, setProduct] = useState('')
+    const [product, setProduct] = useState()
     const [selected, setSelection] = useState(false)
 
     useEffect(() => {
+        console.log(`selected CHANGED TO`, selected)
+        if(selected)
         setSideOpen(true)
     }, [selected])
 
     useEffect(() => {
         // setSelection(false);
-        setProduct('');
+        console.log(`sideOpen CHANGE TO`, sideOpen)
+        if(!sideOpen)
+        setProduct();
     }, [sideOpen])
-
+    // console.log('hello')
     return (
         <div className="product-view">
             <div className="product-main-area">
@@ -42,7 +46,10 @@ function ProductView({ products }) {
             <div className="product-side-panel">
                 <div className="product-side-panel-toggle-wrapper">
                     <div className="product-side-panel-toggle"
-                        onClick={() => setSideOpen((prevSideOpen) => !prevSideOpen)}>
+                        onClick={() => {
+                            setSideOpen((prevSideOpen) => !prevSideOpen)
+                            setSelection(!selected)
+                        }}>
                         {sideOpen ? '>' : '<'}
                     </div>
                 </div>
